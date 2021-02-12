@@ -1,13 +1,13 @@
 # Software-Engineering
 
 
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	    <modelVersion>4.0.0</modelVersion>
     
-    
-    
-    
+
     <groupId>NOMEPACKAGEINMINUSCOLOSENZAL'ULTIMASCRITTA(CHEèILNOMEDELPROGETTO)</groupId> 
     <artifactId>NAMETOINSERTDONTFORGETATTENTIONAAAAA</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -57,7 +57,7 @@
     <dependencies>
     
     
-		<dependency>
+	<dependency>
             <groupId>javax.jms</groupId>
             <artifactId>javax.jms-api</artifactId>
             <version>2.0.1</version>
@@ -92,10 +92,10 @@
         </dependency>
         
         <dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
-			<version>3.3.6</version>
-		</dependency>
+	    <groupId>org.apache.cxf</groupId>
+	    <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+	    <version>3.3.6</version>
+	</dependency>
 		
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -139,7 +139,7 @@
         </dependency>
         
         <dependency>
-			<groupId>org.xerial</groupId>
+	    <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.28.0</version>
         </dependency>
