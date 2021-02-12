@@ -57,7 +57,7 @@
     <dependencies>
     
     
-		<dependency>
+	<dependency>
             <groupId>javax.jms</groupId>
             <artifactId>javax.jms-api</artifactId>
             <version>2.0.1</version>
@@ -92,10 +92,10 @@
         </dependency>
         
         <dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
-			<version>3.3.6</version>
-		</dependency>
+	    <groupId>org.apache.cxf</groupId>
+	    <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+	    <version>3.3.6</version>
+	</dependency>
 		
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -139,7 +139,7 @@
         </dependency>
         
         <dependency>
-			<groupId>org.xerial</groupId>
+	    <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.28.0</version>
         </dependency>
