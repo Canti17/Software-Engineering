@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is JAX-WS RI 2.2.9-b130926.1035 svn-revision#5f6196f2b90e9460065a4c2f4e30e065b245e51e. --><xs:schema xmlns:tns="http://bankws.mycompany.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://bankws.mycompany.com/">
+
+<xs:element name="getOperationDetailsByID" type="tns:getOperationDetailsByID"></xs:element>
+
+<xs:element name="getOperationDetailsByIDResponse" type="tns:getOperationDetailsByIDResponse"></xs:element>
+
+<xs:element name="getOperationsByClientID" type="tns:getOperationsByClientID"></xs:element>
+
+<xs:element name="getOperationsByClientIDResponse" type="tns:getOperationsByClientIDResponse"></xs:element>
+
+<xs:complexType name="getOperationsByClientID">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getOperationsByClientIDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getOperationDetailsByID">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getOperationDetailsByIDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
