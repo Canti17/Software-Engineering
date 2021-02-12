@@ -42,14 +42,15 @@ public class FligthsRepository {
             */
     
     public void setConnection(String pos) {
+
+        //DOPPIO TRY AND CATCH
         try {
             try {
-                Class.forName("org.sqlite.JDBC");
+                Class.forName("org.sqlite.JDBC");    //CONNESSIONE PRIMA ISTRUZIONE
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(FligthsRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
-            conn
-                    = DriverManager.getConnection("jdbc:sqlite:"+pos);
+            conn = DriverManager.getConnection("jdbc:sqlite:"+pos); //CONNESSIONE SECONDA ISTRUZIONE
         } catch (SQLException ex) {
             Logger.getLogger(FligthsRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -82,15 +83,15 @@ public class FligthsRepository {
 
     private Fligth findById(int id) {
         
-        PreparedStatement stat = null;
+        PreparedStatement stat = null;  //PREPARAZIONE ALLA RICHIESTA
         Fligth fl = null;
         try {
             stat = conn.prepareStatement("select * from fligth where id = ?");
-            stat.setString(1, String.valueOf(id));
+            stat.setString(1, String.valueOf(id));  //SOSTITUISCO IL ? CON l'ID ARRIVATO
         
-        ResultSet rs = stat.executeQuery();
+        ResultSet rs = stat.executeQuery();   //ESECUZIONE DELLA QUERY
         if (rs.next()) {
-            fl = new Fligth();
+            fl = new Fligth();  //CREO l'OGGETTO CHE DEVO RITORNARE AL CLIENTE
             fl.setId(Integer.parseInt(rs.getString("id")));
             fl.setName(rs.getString("name"));
             Logger.getLogger(FligthsRepository.class.getName()).log(Level.INFO, "Accessed : " + fl);
@@ -107,14 +108,14 @@ public class FligthsRepository {
             }
         }
         */
-        return fl;   
+        return fl;   //RETURN IL VOLO, RISULTATO DELLA GET(id) 
     }
     
     private void update(int fligthId, Fligth fligth)
     {
         PreparedStatement stat = null;
         try {
-            stat = conn.prepareStatement("update fligth set name = ? where id = ?");
+            stat = conn.prepareStatement("update fligth set name = ? where id = ?");  //STATEMENT
             stat.setString(1, fligth.getName());
             stat.setString(2, String.valueOf(fligthId));
         

@@ -22,7 +22,7 @@ public class Server {
         JAXRSServerFactoryBean factoryBean = new JAXRSServerFactoryBean();
         factoryBean.setResourceClasses(FligthsRepository.class);
         FligthsRepository fr = new FligthsRepository();
-        fr.setConnection(args[0]);
+        fr.setConnection(args[0]);  //THE PATH NEED TO BE THE PATH OF DATABASE /home/student/database FROM THE RUN TOOLS
         factoryBean.setResourceProvider(new SingletonResourceProvider(fr));
         factoryBean.setAddress("http://localhost:8080/");
 

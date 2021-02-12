@@ -31,7 +31,6 @@ public class Client {
         client = HttpClients.createDefault();
 
         // Example GET
-        
         ObjectMapper mapper = new ObjectMapper();
         URL url = new URL(BASE_URL + "2");
         
@@ -42,8 +41,6 @@ public class Client {
         
 
         // Example POST/PUT
-        
-        
         ObjectMapper objectMapper = new ObjectMapper();
         Fligth newFl = new Fligth();
         

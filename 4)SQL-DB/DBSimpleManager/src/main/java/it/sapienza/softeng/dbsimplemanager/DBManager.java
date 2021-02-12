@@ -23,6 +23,9 @@ public class DBManager {
             stat.executeUpdate("create table fligth (id, name);");
             PreparedStatement prep = conn.prepareStatement(
                     "insert into fligth values (?, ?);");
+
+
+                    //CREATION OF DATABASE
             prep.setString(1, "1");
             prep.setString(2, "AZ140");
             prep.addBatch();
@@ -50,6 +53,8 @@ public class DBManager {
             conn.setAutoCommit(false);
             prep.executeBatch();
             conn.setAutoCommit(true);
+
+                //END CREATION DATABASE
         } else {
             ResultSet rs = stat.executeQuery("select * from fligth;");
             while (rs.next()) {
