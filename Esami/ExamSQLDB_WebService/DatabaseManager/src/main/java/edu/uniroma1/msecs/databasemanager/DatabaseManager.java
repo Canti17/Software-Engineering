@@ -28,10 +28,13 @@ public class DatabaseManager {
 
             statement.executeUpdate("DROP TABLE IF EXISTS DIRECTORS;");
             statement.executeUpdate("DROP TABLE IF EXISTS MOVIES;");
+
             statement.executeUpdate("CREATE TABLE DIRECTORS (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                                     + "name STRING, "
                                     + "yearOfBirth STRING);");
-            statement.executeUpdate("CREATE TABLE MOVIES(ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+
+                                    //AUTOINCREMENT = CREA UN ID
+            statement.executeUpdate("CREATE TABLE MOVIES(ID INTEGER PRIMARY KEY AUTOINCREMENT, " 
                                     + "directorID STRING, "
                                     + "title STRING, "
                                     + "year STRING, "
