@@ -16,10 +16,10 @@ import org.slf4j.LoggerFactory;
 
 public class NotificatoreAcquisto implements MessageListener {
 
-        private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(NotificatoreAcquisto.class);  
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(NotificatoreAcquisto.class);  
     
-        Properties properties = null;
-        Context jndiContext = null;
+    Properties properties = null;
+    Context jndiContext = null;
 	private TopicConnectionFactory connectionFactory = null;
 	private TopicConnection connection = null;
 	private TopicSession session = null;
@@ -35,10 +35,10 @@ public class NotificatoreAcquisto implements MessageListener {
 
 	try {
             
-                properties = new Properties();
+		properties = new Properties();
 		properties.setProperty(Context.INITIAL_CONTEXT_FACTORY,"org.apache.activemq.jndi.ActiveMQInitialContextFactory");
-                properties.setProperty(Context.PROVIDER_URL,"tcp://localhost:61616");
-                jndiContext = new InitialContext(properties);        
+		properties.setProperty(Context.PROVIDER_URL,"tcp://localhost:61616");
+		jndiContext = new InitialContext(properties);        
                 
         } catch (NamingException e) {
             LOG.info("ERROR in JNDI: " + e.toString());
@@ -47,26 +47,16 @@ public class NotificatoreAcquisto implements MessageListener {
                 
                 
 		ctx = new InitialContext(properties);
-		this.connectionFactory =
-			(TopicConnectionFactory) ctx.lookup("ConnectionFactory");
-		this.destination =
-			(Topic) ctx.lookup("dynamicTopics/Ordini");
+		this.connectionFactory =(TopicConnectionFactory) ctx.lookup("ConnectionFactory");
+		this.destination =(Topic) ctx.lookup("dynamicTopics/Ordini");
 
-		this.connection =
-			this.connectionFactory.createTopicConnection();
-		this.session =
-			this.connection.createTopicSession(
-					false, Session.AUTO_ACKNOWLEDGE
-				);
-		this.subscriber =
-			this.session.createSubscriber(this.destination, null, true);
-		this.publisher =
-			this.session.createPublisher(this.destination);
+		this.connection =this.connectionFactory.createTopicConnection();
+		this.session =this.connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
+		this.subscriber =this.session.createSubscriber(this.destination, null, true);
+		this.publisher =this.session.createPublisher(this.destination);
 		this.connection.start();
 		
-		Logger.getLogger(
-				this.getClass().getName()
-			).info("In attesa di richieste di acquisto...");
+		Logger.getLogger(this.getClass().getName()).info("In attesa di richieste di acquisto...");
 		
 		subscriber.setMessageListener(this);
 	}
@@ -89,8 +79,7 @@ public class NotificatoreAcquisto implements MessageListener {
 			return;
 		}
 		try {
-			session = connection.createTopicSession(false,
-					Session.AUTO_ACKNOWLEDGE);
+			session = connection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
 			publisher = session.createPublisher(destination);
 			message = session.createTextMessage();
 			message.setStringProperty("Utente", utente);
@@ -99,9 +88,7 @@ public class NotificatoreAcquisto implements MessageListener {
 			message.setIntProperty("Quantita", quantita);
 			message.setFloatProperty("Prezzo", prezzo);
 			
-			Logger.getLogger(
-					this.getClass().getName()
-				).info(
+			Logger.getLogger(this.getClass().getName()).info(
 					"************************************************" + "\n" +
 					"Notifica richiesta di acquisto" + "\n" +
 					"ID utente: " + utente + "\n" +

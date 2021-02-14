@@ -26,8 +26,8 @@ import javax.naming.NamingException;
 
 public class CompraJMSManager extends Observable implements MessageListener {
 	
-        Properties properties = null;
-        Context jndiContext = null;
+	Properties properties = null;
+	Context jndiContext = null;
 	private TopicConnectionFactory connectionFactory = null;
 	private TopicConnection connection = null;
 	private TopicSession session = null;
@@ -40,26 +40,22 @@ public class CompraJMSManager extends Observable implements MessageListener {
 		super.addObserver(osservatore);
 
 		try {
-			
-                    InitialContext ctx = null;
-                    properties = new Properties();
+	
+			InitialContext ctx = null;
+			properties = new Properties();
 		    properties.setProperty(Context.INITIAL_CONTEXT_FACTORY,"org.apache.activemq.jndi.ActiveMQInitialContextFactory");
-                    properties.setProperty(Context.PROVIDER_URL,"tcp://localhost:61616");
-                    jndiContext = new InitialContext(properties);        
+            properties.setProperty(Context.PROVIDER_URL,"tcp://localhost:61616");
+            jndiContext = new InitialContext(properties);        
                 
-                    ctx = new InitialContext(properties);
-		    this.connectionFactory =
-			(TopicConnectionFactory) ctx.lookup("ConnectionFactory");
-		    this.destination =
-			(Topic) ctx.lookup("dynamicTopics/Ordini");
+            ctx = new InitialContext(properties);
+		    this.connectionFactory =(TopicConnectionFactory) ctx.lookup("ConnectionFactory");
+		    this.destination =(Topic) ctx.lookup("dynamicTopics/Ordini");
 
-		    this.connection =
-			this.connectionFactory.createTopicConnection();
-		    this.session =
-			this.connection.createTopicSession(
-					false, Session.AUTO_ACKNOWLEDGE
+		    this.connection =this.connectionFactory.createTopicConnection();
+		    this.session = this.connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE
 				);
-                 this.topicPublisher = session.createPublisher(destination);
+
+         this.topicPublisher = session.createPublisher(destination);
 		} catch (NamingException err) {
 			err.printStackTrace();
 		} catch (JMSException err) {
@@ -76,21 +72,12 @@ public class CompraJMSManager extends Observable implements MessageListener {
 		try {
 			TextMessage sendMex = session.createTextMessage();
 			
-			sendMex.setStringProperty("Utente",
-					utente
-				);
-			sendMex.setStringProperty("Nome",
-					nome
-				);
-			sendMex.setFloatProperty("Prezzo",
-					prezzo
-				);
+			sendMex.setStringProperty("Utente",utente	);
+			sendMex.setStringProperty("Nome",nome);
+			sendMex.setFloatProperty("Prezzo",prezzo);
 
 			sendMex.setIntProperty("Quantita", quantita);
-			String query =
-					"Utente = '" + utente + "'" +
-					" AND " +
-					"Nome = '" + nome + "'";
+			String query =	"Utente = '" + utente + "'" +	" AND " +	"Nome = '" + nome + "'";
 			sub = session.createSubscriber(destination, query, true);
 			sub.setMessageListener(this);
 			connection.start();

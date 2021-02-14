@@ -34,25 +34,25 @@ public class ProduttoreQuotazioni {
         
 	public void start() throws NamingException, JMSException {
                 
-                Context jndiContext = null;
-                ConnectionFactory connectionFactory = null;
-                Connection connection = null;
-                Session session = null;
-                Destination destination = null;
-                MessageProducer producer = null;
-                String destinationName = "dynamicTopics/Quotazioni";
-        
-                /*
-         * Create a JNDI API InitialContext object
+            Context jndiContext = null;
+            ConnectionFactory connectionFactory = null;
+            Connection connection = null;
+            Session session = null;
+            Destination destination = null;
+            MessageProducer producer = null;
+            String destinationName = "dynamicTopics/Quotazioni";
+    
+            /*
+        * Create a JNDI API InitialContext object
          */
         
         try {
             
             Properties props = new Properties();
         
-props.setProperty(Context.INITIAL_CONTEXT_FACTORY,"org.apache.activemq.jndi.ActiveMQInitialContextFactory");
-props.setProperty(Context.PROVIDER_URL,"tcp://localhost:61616");
-jndiContext = new InitialContext(props);        
+            props.setProperty(Context.INITIAL_CONTEXT_FACTORY,"org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+            props.setProperty(Context.PROVIDER_URL,"tcp://localhost:61616");
+            jndiContext = new InitialContext(props);        
                 
         } catch (NamingException e) {
             LOG.info("ERROR in JNDI: " + e.toString());
@@ -83,36 +83,32 @@ jndiContext = new InitialContext(props);
             
               
                 
-                TextMessage message = null;
-		String messageType = null;
+            TextMessage message = null;
+		    String messageType = null;
 		
-                message = session.createTextMessage();
+            message = session.createTextMessage();
 
-                float quotazione;
-		int i = 0;
-		while (true) {
-			i++;
-			messageType = scegliTitolo();
-			quotazione = valore();
-			message.setStringProperty("Nome", messageType);
-			message.setFloatProperty("Valore", quotazione);
-			message.setText(
-					"Item " + i + ": " + messageType + ", Valore: "
-					+ quotazione);
+            float quotazione;
+		    int i = 0;
+		    while (true) {
+                i++;
+                messageType = scegliTitolo();
+                quotazione = valore();
+                message.setStringProperty("Nome", messageType);
+                message.setFloatProperty("Valore", quotazione);
+                message.setText("Item " + i + ": " + messageType + ", Valore: "+ quotazione);
 
-			    LOG.info(
-					this.getClass().getName() + 
-				        "Invio quotazione: " + message.getText());
+                LOG.info(this.getClass().getName() +  "Invio quotazione: " + message.getText());
 
-			producer.send(message);
+                producer.send(message);
 
-			try {
-				Thread.sleep(5000);
-			} catch (Exception ex) {
+                try {
+				    Thread.sleep(5000);
+			    } catch (Exception ex) {
 				ex.printStackTrace();
-			}
-		}
-	}
+			    }
+		    }
+	    }
         
         catch (JMSException e) {
             LOG.info("Exception occurred: " + e);

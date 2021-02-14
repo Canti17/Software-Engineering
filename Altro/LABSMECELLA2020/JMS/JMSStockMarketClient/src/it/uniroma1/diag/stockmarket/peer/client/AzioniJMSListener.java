@@ -27,31 +27,28 @@ public class AzioniJMSListener extends Observable implements MessageListener {
 			super.addObserver(osservatore);
 		}
 		
-                Context jndiContext = null;
-                ConnectionFactory topicConnectionFactory = null;
-                
-                String destinationName = "dynamicTopics/Quotazioni";
+			Context jndiContext = null;
+			ConnectionFactory topicConnectionFactory = null;
+			
+			String destinationName = "dynamicTopics/Quotazioni";
                 
 		try {
 			
-                    Properties props = new Properties();
+		Properties props = new Properties();
         
-props.setProperty(Context.INITIAL_CONTEXT_FACTORY,"org.apache.activemq.jndi.ActiveMQInitialContextFactory");
-props.setProperty(Context.PROVIDER_URL,"tcp://localhost:61616");
-jndiContext = new InitialContext(props);   
+		props.setProperty(Context.INITIAL_CONTEXT_FACTORY,"org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+		props.setProperty(Context.PROVIDER_URL,"tcp://localhost:61616");
+		jndiContext = new InitialContext(props);   
                     
-                    
-                    		
+ 	
+		topicConnectionFactory = (ConnectionFactory)jndiContext.lookup("ConnectionFactory");
+		destination = (Destination)jndiContext.lookup(destinationName);
+		topicConnection = (TopicConnection)topicConnectionFactory.createConnection();
+		topicSession = (TopicSession)topicConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+					
+		TopicSubscriber topicSubscriber =  topicSession.createSubscriber((Topic)destination);
 			
-			topicConnectionFactory = (ConnectionFactory)jndiContext.lookup("ConnectionFactory");
-                        destination = (Destination)jndiContext.lookup(destinationName);
-			topicConnection = (TopicConnection)topicConnectionFactory.createConnection();
-                        topicSession = (TopicSession)topicConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-                        
-                        TopicSubscriber topicSubscriber =  
-				topicSession.createSubscriber((Topic)destination);
-			
-			topicSubscriber.setMessageListener(this);
+		topicSubscriber.setMessageListener(this);
 		} catch (JMSException err) {
 			err.printStackTrace();
 		} catch (NamingException err) {
